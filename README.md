@@ -1,4 +1,4 @@
-# ArUco Print Sheet Maker
+# Vision Pattern Sheet Maker
 
 複数の ArUco / AprilTag マーカーやカメラキャリブレーション用チェッカーボードを、1枚または複数枚の用紙に並べて印刷するための静的Webアプリです。
 
