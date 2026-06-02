@@ -16,7 +16,10 @@ const rangeStartInput = document.querySelector("#range-start");
 const rangeCountInput = document.querySelector("#range-count");
 const form = document.querySelector("#marker-form");
 const markerForm = document.querySelector("#marker-form");
-const rangeControls = document.querySelector(".range-controls");
+const markerSubmitButton = document.querySelector("#marker-submit");
+const markerAddModeInputs = document.querySelectorAll('input[name="marker-add-mode"]');
+const singleIdField = document.querySelector("#single-id-field");
+const rangeFields = document.querySelector("#range-fields");
 const modeInputs = document.querySelectorAll('input[name="pattern-mode"]');
 const workspace = document.querySelector(".workspace");
 const sheetFrame = document.querySelector("#sheet-frame");
@@ -26,7 +29,6 @@ const paperSizeInput = document.querySelector("#paper-size");
 const pageMarginInput = document.querySelector("#page-margin");
 const markerGapInput = document.querySelector("#marker-gap");
 const showLabelsInput = document.querySelector("#show-labels");
-const fillRangeButton = document.querySelector("#fill-range");
 const clearButton = document.querySelector("#clear-all");
 const printButton = document.querySelector("#print-sheet");
 const status = document.querySelector("#status");
@@ -378,13 +380,28 @@ function addRange() {
   status.textContent = `${start} から ${end} まで追加しました。${pagesElement.children.length}ページに配置中です。`;
 }
 
+function markerAddMode() {
+  return document.querySelector('input[name="marker-add-mode"]:checked').value;
+}
+
+function updateMarkerAddMode() {
+  const isRange = markerAddMode() === "range";
+  singleIdField.hidden = isRange;
+  rangeFields.hidden = !isRange;
+  markerSubmitButton.textContent = isRange ? "連番を追加" : "追加";
+}
+
 dictionaryInput.addEventListener("change", updateIdLimit);
 markerIdInput.addEventListener("input", () => {
   rangeStartInput.value = markerIdInput.value;
 });
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-  addMarker(dictionaryInput.value, markerIdInput.value, markerSizeInput.value);
+  if (markerAddMode() === "range") {
+    addRange();
+  } else {
+    addMarker(dictionaryInput.value, markerIdInput.value, markerSizeInput.value);
+  }
 });
 checkerboardForm.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -395,16 +412,18 @@ modeInputs.forEach((input) => {
   input.addEventListener("change", () => {
     const isCheckerboard = input.value === "checkerboard" && input.checked;
     markerForm.hidden = isCheckerboard;
-    rangeControls.hidden = isCheckerboard;
     checkerboardForm.hidden = !isCheckerboard;
   });
+});
+
+markerAddModeInputs.forEach((input) => {
+  input.addEventListener("change", updateMarkerAddMode);
 });
 
 [paperSizeInput, pageMarginInput, markerGapInput, showLabelsInput].forEach((input) => {
   input.addEventListener("input", render);
 });
 
-fillRangeButton.addEventListener("click", addRange);
 clearButton.addEventListener("click", () => {
   markers.splice(0, markers.length);
   render();
@@ -413,5 +432,6 @@ printButton.addEventListener("click", () => window.print());
 window.addEventListener("resize", fitSheetToWorkspace);
 
 setupDictionaries();
+updateMarkerAddMode();
 updateSheet();
 render();

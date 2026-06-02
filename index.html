@@ -32,27 +32,47 @@
               種類
               <select id="dictionary"></select>
             </label>
-            <div class="two-up">
+            <div class="sub-tabs" role="radiogroup" aria-label="追加方法">
+              <label>
+                <input type="radio" name="marker-add-mode" value="single" checked />
+                単体
+              </label>
+              <label>
+                <input type="radio" name="marker-add-mode" value="range" />
+                連番
+              </label>
+            </div>
+            <div id="single-id-field">
               <label>
                 ID
                 <input id="marker-id" type="number" min="0" value="0" />
               </label>
+            </div>
+            <div id="range-fields" class="two-up" hidden>
               <label>
-                サイズ(mm)
-                <input id="marker-size" type="number" min="5" max="200" step="1" value="40" />
+                開始ID
+                <input id="range-start" type="number" min="0" value="0" />
+              </label>
+              <label>
+                個数
+                <input id="range-count" type="number" min="1" max="500" value="10" />
               </label>
             </div>
             <div class="two-up">
               <label>
+                サイズ(mm)
+                <input id="marker-size" type="number" min="5" max="200" step="1" value="40" />
+              </label>
+              <label>
                 白余白(mm)
                 <input id="quiet-zone" type="number" min="0" max="50" step="1" value="5" />
               </label>
-              <label class="check">
-                <input id="show-borders" type="checkbox" />
-                枠線
-              </label>
             </div>
-            <button type="submit">このIDを追加</button>
+            <label class="check compact-check">
+              <input id="show-borders" type="checkbox" />
+              枠線を表示
+            </label>
+            <button id="marker-submit" type="submit">追加</button>
           </fieldset>
         </form>
 
@@ -92,23 +112,6 @@
             <button type="submit">ボードを追加</button>
           </fieldset>
         </form>
-
-        <div class="range-controls pattern-panel">
-          <fieldset>
-            <legend>連番</legend>
-            <div class="two-up">
-              <label>
-                開始ID
-                <input id="range-start" type="number" min="0" value="0" />
-              </label>
-              <label>
-                個数
-                <input id="range-count" type="number" min="1" max="500" value="10" />
-              </label>
-            </div>
-            <button id="fill-range" type="button">連番を追加</button>
-          </fieldset>
-        </div>
 
         <div class="sheet-controls">
           <fieldset>
