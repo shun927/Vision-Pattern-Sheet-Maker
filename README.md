@@ -13,11 +13,12 @@
 
 ## Cloudflare Pages
 
-Git連携で以下を設定します。
+Wrangler CLIでCloudflare Pagesへ公開します。
 
-- Production branch: `main`
-- Build command: `npm run build`
-- Build output directory: `dist`
-- Root directory: 空欄
+```sh
+npm run deploy
+```
 
 `dist` には公開に必要なHTML、CSS、JavaScriptだけが出力されます。
+
+公開URL: https://vision-pattern-sheet-maker.pages.dev/

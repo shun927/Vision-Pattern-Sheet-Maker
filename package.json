@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "node scripts/build.mjs"
+    "build": "node scripts/build.mjs",
+    "deploy": "npm run build && npx wrangler@latest pages deploy dist --project-name vision-pattern-sheet-maker --branch main"
   }
 }
