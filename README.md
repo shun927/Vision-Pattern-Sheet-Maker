@@ -10,3 +10,14 @@
 4. 用紙、余白、間隔、ラベル表示を調整して「印刷」を押します。
 
 マーカーのパターンは OpenCV 4.12 の `cv2.aruco` から生成しています。対応辞書はアプリ内の「種類」プルダウンに含まれる22種類です。
+
+## Cloudflare Pages
+
+Git連携で以下を設定します。
+
+- Production branch: `main`
+- Build command: `npm run build`
+- Build output directory: `dist`
+- Root directory: 空欄
+
+`dist` には公開に必要なHTML、CSS、JavaScriptだけが出力されます。
